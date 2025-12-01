@@ -19,8 +19,7 @@ def solve_problem(file_name, click=False):
 
   rotations = parse_input(Path(cwd, file_name))
 
-  cumulative_rotations = [sum(rotations[:ind+1])%100 for ind in
-                          range(len(rotations))]
+  cumulative_rotations = map(lambda x: x%100, np.cumsum(rotations))
   dial_start_position = 50
 
   dial_positions = [dial_start_position] +\
