@@ -8,7 +8,6 @@ Created on Thu Dec  4 09:10:02 2025
 
 import itertools as it
 from pathlib import Path
-from functools import wraps
 from time import time
 
 import numpy as np
@@ -16,7 +15,6 @@ import numpy as np
 cwd = Path(__file__).parent.resolve()
 
 def timing(f):
-    @wraps(f)
     def wrap(*args, **kw):
         ts = time()
         result = f(*args, **kw)
