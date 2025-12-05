@@ -43,7 +43,7 @@ class JoinedIntervals():
     max_a1 = max([i.a1 for i in intersected])
 
     self.intervals = nonintersected + [Interval(min_a0, max_a1)]
-    self.intervals = sorted(self.intervals, key=lambda x: x.a1) # OCDC
+    self.intervals = sorted(self.intervals, key=lambda x: x.a1) # OCD
 
   def contains(self, num):
     return any([x.contains(num) for x in self.intervals])
