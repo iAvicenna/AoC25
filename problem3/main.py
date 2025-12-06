@@ -1,7 +1,7 @@
 import numpy as np
 from pathlib import Path
 
-cwd = Path(__file__).parent.resolve()
+cwd = Path(__file__).parent
 
 
 def parse_input(file_path):
