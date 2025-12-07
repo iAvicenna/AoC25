@@ -19,10 +19,16 @@ def timing(f):
   return wrap
 
 
+def parse_input(file_path):
+  with file_path.open("r") as fp:
+    data = list(map(str.strip, fp.readlines()))
+
+  return np.array([list(row) for row in data], dtype=object)
+
+
 class Node:
 
   def __init__(self, symbol, row, col):
-
     self.symbol = symbol
     self.loc = tuple([row, col])
     self.parents = []
@@ -32,8 +38,8 @@ class Node:
   def nparents(self):
     return len(self.parents)
 
+  @property
   def is_connected(self):
-
     return self.symbol=='S' or len(self.parents)>0
 
   def connect(self, node_dict, s0, s1):
@@ -43,26 +49,15 @@ class Node:
 
     top = node_dict[(self.loc[0]-1, self.loc[1])]
 
-    if top.symbol in ['.','S'] and top.is_connected():
+    if top.symbol in ['.','S'] and top.is_connected:
       self.parents.append(top)
 
-    if self.symbol=='^' and top.is_connected():
+    if self.symbol=='^' and top.is_connected:
       left =  node_dict[(self.loc[0], self.loc[1]-1)]
       right =  node_dict[(self.loc[0], self.loc[1]+1)]
 
       left.parents.append(self)
       right.parents.append(self)
-
-  def __repr__(self):
-
-    return f"{self.symbol} at {self.loc}"
-
-
-def parse_input(file_path):
-  with file_path.open("r") as fp:
-    data = list(map(str.strip, fp.readlines()))
-
-  return np.array([list(row) for row in data], dtype=object)
 
 
 def count_paths(node0, node1):
@@ -71,9 +66,7 @@ def count_paths(node0, node1):
     return 1
 
   else:
-
     npaths = 0
-
     for p in node1.parents:
       if p.npaths_to_root != -1:
         npaths += p.npaths_to_root
@@ -91,13 +84,11 @@ def solve_problem(file_name, quantum=False):
   s0,s1 = grid.shape
 
   node_dict = {(i,j):Node(grid[i,j], i, j) for i,j in it.product(range(s0), range(s1))}
-
   [node.connect(node_dict, s0, s1) for node in node_dict.values()]
-
 
   if not quantum:
     return len([x for x in node_dict.values() if x.symbol == '^' and
-                x.is_connected()>0])
+                x.is_connected>0])
   else:
     start_ind = [(0, j) for j in range(s1) if node_dict[0,j].symbol=='S'][0]
     start_node = node_dict[start_ind]
@@ -105,7 +96,7 @@ def solve_problem(file_name, quantum=False):
     npaths = 0
 
     end_nodes = [node_dict[(s0-1,j)] for j in range(s1) if
-                 node_dict[s0-1,j].is_connected()]
+                 node_dict[s0-1,j].is_connected]
 
     for indn, end_node in enumerate(end_nodes):
 
