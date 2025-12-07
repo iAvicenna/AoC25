@@ -32,7 +32,7 @@ class Node:
     self.symbol = symbol
     self.loc = tuple([row, col])
     self.parents = []
-    self.npaths_to_root = -1
+    self.npaths_to_start = -1
 
   @property
   def nparents(self):
@@ -71,11 +71,11 @@ def count_paths_to_start(node0, node1):
   else:
     npaths = 0
     for p in node1.parents:
-      if p.npaths_to_root != -1:
-        npaths += p.npaths_to_root
+      if p.npaths_to_start != -1:
+        npaths += p.npaths_to_start
       else:
-        p.npaths_to_root = count_paths_to_start(node0, p)
-        npaths += p.npaths_to_root
+        p.npaths_to_start = count_paths_to_start(node0, p)
+        npaths += p.npaths_to_start
 
     return npaths
 
