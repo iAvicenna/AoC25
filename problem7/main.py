@@ -43,14 +43,14 @@ class Node:
     if self.loc[0]==0:
       return
 
-    top = node_dict[(self.loc[0]-1, self.loc[1])]
+    top = node_dict[self.loc[0]-1, self.loc[1]]
 
     if top.symbol in ['.','S'] and top.is_connected:
       self.parents.append(top)
 
     if self.symbol=='^' and top.is_connected:
-      left =  node_dict[(self.loc[0], self.loc[1]-1)]
-      right =  node_dict[(self.loc[0], self.loc[1]+1)]
+      left =  node_dict[self.loc[0], self.loc[1]-1]
+      right =  node_dict[self.loc[0], self.loc[1]+1]
 
       left.parents.append(self)
       right.parents.append(self)
