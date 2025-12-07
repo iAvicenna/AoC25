@@ -82,7 +82,8 @@ def solve_problem(file_name, quantum=False):
   grid = parse_input(Path(cwd, file_name))
   s0,s1 = grid.shape
 
-  node_dict = {(i,j):Node(grid[i,j], i, j) for i,j in it.product(range(s0), range(s1))}
+  node_dict = {(i,j):Node(grid[i,j], i, j) for i,j in
+               it.product(range(s0), range(s1))}
   [node.connect(node_dict, s0, s1) for node in node_dict.values()]
 
   if not quantum:
@@ -90,14 +91,10 @@ def solve_problem(file_name, quantum=False):
                 x.is_connected>0])
   else:
     start_ind = [(0, j) for j in range(s1) if node_dict[0,j].symbol=='S'][0]
-    start_node = node_dict[start_ind]
-
-    end_nodes = [node_dict[(s0-1,j)] for j in range(s1) if
-                 node_dict[s0-1,j].is_connected]
 
     return\
-      sum([count_paths_to_start(start_node, end_node) for end_node in
-           end_nodes])
+      sum([count_paths_to_start(node_dict[start_ind], node_dict[s0-1, j]) for
+           j in range(s1) if node_dict[s0-1,j].is_connected])
 
 
 
