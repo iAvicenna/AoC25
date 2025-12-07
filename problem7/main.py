@@ -60,18 +60,21 @@ class Node:
       right.parents.append(self)
 
 
-def count_paths(node0, node1):
+def count_paths_to_start(node0, node1):
+  '''
+  node0 should always be the start node else
+  result is meaningless
+  '''
 
   if node0 in node1.parents:
     return 1
-
   else:
     npaths = 0
     for p in node1.parents:
       if p.npaths_to_root != -1:
         npaths += p.npaths_to_root
       else:
-        p.npaths_to_root = count_paths(node0, p)
+        p.npaths_to_root = count_paths_to_start(node0, p)
         npaths += p.npaths_to_root
 
     return npaths
@@ -100,7 +103,7 @@ def solve_problem(file_name, quantum=False):
 
     for indn, end_node in enumerate(end_nodes):
 
-      npaths += count_paths(start_node, end_node)
+      npaths += count_paths_to_start(start_node, end_node)
 
     return npaths
 
