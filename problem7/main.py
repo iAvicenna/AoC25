@@ -35,10 +35,6 @@ class Node:
     self.npaths_to_start = -1
 
   @property
-  def nparents(self):
-    return len(self.parents)
-
-  @property
   def is_connected(self):
     return self.symbol=='S' or len(self.parents)>0
 
