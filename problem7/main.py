@@ -92,16 +92,13 @@ def solve_problem(file_name, quantum=False):
     start_ind = [(0, j) for j in range(s1) if node_dict[0,j].symbol=='S'][0]
     start_node = node_dict[start_ind]
 
-    npaths = 0
-
     end_nodes = [node_dict[(s0-1,j)] for j in range(s1) if
                  node_dict[s0-1,j].is_connected]
 
-    for indn, end_node in enumerate(end_nodes):
+    return\
+      sum([count_paths_to_start(start_node, end_node) for end_node in
+           end_nodes])
 
-      npaths += count_paths_to_start(start_node, end_node)
-
-    return npaths
 
 
 if __name__ == "__main__":
