@@ -80,8 +80,7 @@ def solve_problem(file_name, nconnect):
 
   dist = np.sqrt(np.sum((coordinates[None,:] - coordinates[:,None])**2, axis=-1))
 
-
-  if nconnect != -1:
+  if nconnect != -1: # part 1
     Itriu = np.triu_indices(dist.shape[0], k=1)
     dist = dist[Itriu]
     Isort = [(Itriu[0][i], Itriu[1][i]) for i in np.argsort(dist)[:nconnect]]
@@ -90,7 +89,7 @@ def solve_problem(file_name, nconnect):
     components = sorted(list(nx.connected_components(G)), key=len)[::-1]
 
     return np.prod(list(map(len, components[:3])))
-  else:
+  else: # part 2
     indices = binary_search(G, dist)
     return np.prod(coordinates[indices,:],axis=0)[0]
 
