@@ -81,6 +81,16 @@ def binary_search(G, dist):
 
 @timing
 def solve_problem(file_name, nconnect):
+  '''
+  Construct a graph where each node is a junction box.
+
+  part1: add edges to the graph for the ten closest box pairs, compute
+  number of connected components of the graph
+
+  part2: binary search to find what is the smallest number of
+  junction box pairs (ordered by distance again) one can add
+  so number of connected components is 1.
+  '''
 
   coordinates = parse_input(Path(cwd, file_name))
   G = nx.Graph()
