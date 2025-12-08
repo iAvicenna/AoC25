@@ -55,6 +55,8 @@ def binary_search(G, dist):
     G.remove_edges_from(Isort[:icurrent])
 
     if len(components)>1:
+      # if >1 componenst, go between this and closest next index with 1 component
+
       I = [ind for ind,n in enumerate(nhist) if n==1]
 
       if len(I)==0:
@@ -64,9 +66,15 @@ def binary_search(G, dist):
 
       icurrent = icurrent + int(np.ceil((inext-icurrent)/2))
 
-    else:
-      ind = [ind for ind,n in enumerate(nhist) if n>1][-1]
-      icurrent = ihist[ind] + int(np.ceil((icurrent-ihist[ind])/2))
+    else: # if 1 component, go between nearest previous >1 components and this index
+      I = [ind for ind,n in enumerate(nhist) if n>1]
+
+      if len(I)==0:
+        iprev = 0
+      else:
+        iprev = max(np.array(ihist)[I])
+
+      icurrent = iprev + int(np.ceil((icurrent-iprev)/2))
 
   return Isort[icurrent-1]
 
@@ -78,7 +86,8 @@ def solve_problem(file_name, nconnect):
   G = nx.Graph()
   G.add_nodes_from(range(coordinates.shape[0]))
 
-  dist = np.sqrt(np.sum((coordinates[None,:] - coordinates[:,None])**2, axis=-1))
+  dist = np.sqrt(np.sum((coordinates[None,:] - coordinates[:,None])**2,
+                        axis=-1))
 
   if nconnect != -1: # part 1
     Itriu = np.triu_indices(dist.shape[0], k=1)
