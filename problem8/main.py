@@ -55,7 +55,7 @@ def binary_search(G, dist):
     G.remove_edges_from(Isort[:icurrent])
 
     if len(components)>1:
-      # if >1 componenst, go between this and closest next index with 1 component
+      # if >1 components, go between this and closest next index with 1 component
 
       I = [ind for ind,n in enumerate(nhist) if n==1]
 
