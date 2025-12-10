@@ -84,7 +84,7 @@ def minimum(nullspace, particular):
 
   nvecs = nullspace.shape[0]
 
-  coef = np.array(list(it.product(np.arange(0, 10), repeat=nvecs)))
+  coef = np.array(list(it.product(np.arange(0, 2), repeat=nvecs)))
 
   A = np.sum(np.mod(coef@np.array(nullspace) + particular[None,:],2),axis=-1)
 
@@ -115,4 +115,4 @@ def solve_problem1(file_name, verbose=False):
 if __name__ == "__main__":
 
   assert solve_problem1("test_input") == 7
-  assert solve_problem1("input") == 475
+  assert solve_problem1("input", True) == 475
