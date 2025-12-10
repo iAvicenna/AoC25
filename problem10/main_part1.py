@@ -115,4 +115,4 @@ def solve_problem1(file_name, verbose=False):
 if __name__ == "__main__":
 
   assert solve_problem1("test_input") == 7
-  assert solve_problem1("input", True) == 475
+  assert solve_problem1("input") == 475
