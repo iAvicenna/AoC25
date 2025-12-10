@@ -69,14 +69,8 @@ def solve(A, x):
 
   pivots = find_pivots(R)
 
-  m, n_plus_1 = R.shape
-  n = n_plus_1 - 1
-
-  inconsistent = any(all(R[i, :n] == 0) and R[i, n] == 1
-                     for i in range(m))
-
-  if inconsistent:
-    raise ValueError("no solutions")
+  m, n = R.shape
+  n -= 1
 
   particular = GF2.Zeros(n)
 
@@ -116,7 +110,6 @@ def solve_problem1(file_name, verbose=False):
     sum_press += minimum(nullspace, particular)
 
   return sum_press
-
 
 
 if __name__ == "__main__":
