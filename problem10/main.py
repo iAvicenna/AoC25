@@ -62,6 +62,7 @@ def find_pivots(R):
 
     return pivots
 
+
 def solve_GF2(A, x):
 
   nullspace = A.null_space()
@@ -78,8 +79,6 @@ def solve_GF2(A, x):
 
   for r, c in enumerate(pivots):
       particular[c] = R[r, n]
-
-
 
   return np.array(particular), nullspace
 
@@ -120,7 +119,6 @@ def minimize(nullspace, particular, jolt):
       N += 500
 
     return np.min(np.sum(A[I,:],axis=-1))
-
 
 
 @timing
