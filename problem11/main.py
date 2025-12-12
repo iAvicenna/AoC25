@@ -65,7 +65,9 @@ def count_paths_dag(G, source, target):
   npaths = {node: 0 for node in G.nodes()}
   npaths[source] = 1
 
-  for node in nx.topological_sort(G):
+  sorted_nodes = list(nx.topological_sort(G))
+
+  for node in sorted_nodes[sorted_nodes.index(source):]:
     for nbr in G.successors(node):
       npaths[nbr] += npaths[node]
 
